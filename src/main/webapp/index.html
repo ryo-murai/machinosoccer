@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>まちのサッカークラブ申込み</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+<body>
+
+<h2>申込みサイト（工事中）</h2>
+<p>
+
+<ul>
+
+<li>操作フロー
+  <ul>
+    <li>あるアドレスに空メール送ると、登録サイトのリンク（メアドごとに生成）が返信されてくる</li>
+    <li>リンクをクリックする
+      <ul>
+        <li>未登録アドレスの人は<a href="register.html">登録ページ</a>が表示される</li>
+        <li>登録済みだと<a href="attend.html">参加申し込みページ</a>が表示される</li>
+      </ul>
+    </li>
+    <li>とりあえず申込締切までは、参加・不参加を変更可能。締切過ぎたらキャンセルのみできる（まだ画面つくってない）</li>
+    <li>定員判定は人間味のある処理が必要な気がしています。サイトではとりあえず受け付けておいて、申込日時順の一覧画面で、どのラインで足きりするかを人間が判定して操作する。すると、一括でメールで申込者宛にそれぞれの申込可否結果が送信される、的な感じとか</li>
+  </ul>
+</li>
+
+<li>これから作る必要のある機能（参加者用）
+  <ul>
+    <li>空メール受信＆自動返信</li>
+    <li>参加者や参加申し込みを実際にデータベースに登録</li>
+    <li>申込期間外のときの表示</li>
+    <li>参加可否メール送信</li>
+    <li>ガラケー表示対応</li>
+  </ul>
+</li>
+<li>これから作る必要のある機能（運営側用）
+  <ul>
+    <li>開催データ投入・編集（開催日時・場所・定員・申込締切日時 など）</li>
+    <li>参加申し込み状況確認</li>
+    <li>参加者一覧出力（いつものExcelの表みたいなものを出したい。GoogleDocsのspreadsheetとかでできないか要調査）</li>
+    <li>参加可否編集（メールで申し込んだり変更を依頼してきたりする人の対応で）</li>
+  </ul>
+</li>
+
+<li>あるといいな的な：
+  <ul>
+    <li>リマインダー（開催前日にメールでお知らせ）</li>
+  </ul>
+</li>
+
+<li>要検討（運用）
+  <ul>
+    <li>データベースのバックアップとかどうしよう</li>
+    <li>メール送受信機能が使いやすいのでappengineにしてるけど、サービス障害起きたらどうしよう</li>
+    <li>appengineの無料枠で収まらないとき（たぶん大丈夫だと思うけど）</li>
+  </ul>
+</li>
+
+</ul>
+
+</p>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
