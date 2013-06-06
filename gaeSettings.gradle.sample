@@ -1,0 +1,8 @@
+gae {
+  // downloadSdk = true
+
+  appcfg {
+    email = 'your_appspot_account@gmail.com'
+    password = 'your_appspot_password'
+  }
+}

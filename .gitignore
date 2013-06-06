@@ -5,3 +5,5 @@
 gradle/
 build
 classes/
+src/main/webapp/WEB-INF/lib/
+gaeSettings.gradle

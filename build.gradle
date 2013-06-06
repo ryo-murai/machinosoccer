@@ -74,6 +74,22 @@ dependencies {
     gaeSdk "com.google.appengine:appengine-java-sdk:$gaeVersion"
 }
 
+/**
+ * appengine settings
+ */
+gae {
+  stopKey = 'stop'
+}
+
+if(file('gaeSettings.gradle').exists()) apply from: 'gaeSettings.gradle'
+
+update {
+  useJava7 = true
+}
+
+/**
+ * IDE settings
+ */
 idea {
     project {
         jdkName = compatibilityVersion
