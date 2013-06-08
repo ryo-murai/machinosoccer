@@ -49,7 +49,7 @@ dependencies {
             "com.google.appengine:appengine-api-labs:$gaeVersion"
     compile 'org.gaelyk:gaelyk:2.0'
     
-    
+	compile 'joda-time:joda-time:2.2'
 
     /** 
      * To add binary plugin just declare it as a dependency. For example,
@@ -106,7 +106,7 @@ idea {
 
 eclipse {
     project {
-        name 'gaelyk-project'
+        name  gradle.rootProject.name
         file {
             whenMerged { project ->
                 project.natures << 'com.google.appengine.eclipse.core.gaeNature'

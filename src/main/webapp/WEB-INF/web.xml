@@ -65,6 +65,15 @@
         </auth-constraint>
     </security-constraint>
     -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>GTPL protected
+			</web-resource-name>
+				<url-pattern>*.gtpl</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+		</auth-constraint>
+	</security-constraint>
 
     <welcome-file-list>
         <welcome-file>index.gtpl</welcome-file>

@@ -6,4 +6,5 @@ gradle/
 build
 classes/
 src/main/webapp/WEB-INF/lib/
+src/main/webapp/WEB-INF/appengine-generated/
 gaeSettings.gradle

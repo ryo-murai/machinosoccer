@@ -5,5 +5,13 @@ get "/datetime", forward: "/datetime.groovy"
 get "/favicon.ico", redirect: "/images/gaelyk-small-favicon.png"
 
 get "/attend", forward: "/getattend.groovy"
-//post "/attend", forward: "/postattend.groovy"
-post "/attend", forward: "/getattend.groovy"
+post "/attend", forward: "/getattend.groovy"  // TODO:
+
+get "/admin/events", forward: "/admin/events.groovy"
+
+get "/admin/event/@operation?/@id?", forward: "/admin/event.groovy"
+
+post "/admin/updateEvent", forward: "/admin/updateEvent.groovy"
+
+get  "/admin/importMembers", forward: "/admin/importMembers.groovy"
+post "/admin/importMembers", forward: "/admin/importMembers.groovy"
