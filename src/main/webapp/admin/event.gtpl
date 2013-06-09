@@ -23,7 +23,7 @@
 	<label for="lessonClassId">
 	クラス
 	<select	class="" name="lessonClassId">
-		<% LessonClass.values().each { l -> %>
+		<% request.lessons.each { l -> %>
 		<option value="${l.name()}" ${l.name() == request.event.lessonClassId ? 'selected' : ''}>${l.label}</option>
 		<% } %>
 	</select>

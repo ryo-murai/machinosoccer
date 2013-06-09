@@ -25,13 +25,10 @@ switch(params.operation) {
 			dueHour: dueDate.hourOfDay,
 			description: ev.description,
 		]
-		// DEBUG
-		log.info "${event}"
 		// fall through
 		
 	case 'new':
-		log.info "1  ${request.event}"
-		// create empty event DTO
+		// set empty if new operation
 		request.event = event ?: [
 			id: '',
 			year: '',
@@ -46,8 +43,8 @@ switch(params.operation) {
 			dueHour: '',
 			description: '',
 		]
-		log.info "2  ${request.event}"
 		
+		request.lessons = LessonClass.values()
 		forward 'event.gtpl'
 		break;
 
