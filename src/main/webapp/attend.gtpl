@@ -43,11 +43,13 @@
 
 <% } %>
 
+<!-- 
     <label class="checkbox">
       <input type="checkbox" name="autoApply" ${request.autoApply?"checked":""} >今後の開催は自動的に「参加」を申し込む
       <span class="help-block"><small>次回からは申込の手間がかからなくなります</small></span>
     </label>
-
+ -->
+ 
   <div class="alert">
     <input type="submit" class="btn btn-primary" value="申込" />
            定員に達した場合は参加をお断りすることがあります

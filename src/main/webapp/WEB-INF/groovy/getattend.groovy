@@ -6,11 +6,15 @@ def now = new Date()
 def activeEvents = datastore.execute {
 	select all from Event
 	where isActive == true 
-	and   dueApply < now
-	//sort asc by date
+	and   date > now
+	sort asc by date
 }
 
-// TODO: handle activeEvents is zero, should forward 'no active events present' page
+if(activeEvents.isEmpty()) {
+	forward 'noActiveEvents.gtpl'
+	return
+}
+
 // TODO: handle cancel for future event but overdue
 
 // temporary implementation
@@ -59,11 +63,14 @@ request.description = '''
 // TODO: filter by lesson class
 request.attendMembers = []
 members.each { m ->
+	def lessonClass = LessonClass.findByBirthFY(m.birthFY.toInteger())
 	request.attendMembers.add(
-		name: "${m.familyName} ${m.givenName}(${m.familyNameKana} ${m.givenNameKana}",
+		name: "${m.familyName} ${m.givenName}(${m.familyNameKana} ${m.givenNameKana})",
 		printableAge: Age.fromBirthFY(m.birthFY.toInteger()).label,
 		memberKey: m.key as String,
-		attendList: activeEvents.collect { e ->
+		attendList: activeEvents.findAll { e -> 
+			e.lessonClassId == lessonClass.name() 
+		}.collect { e ->
 			def attendKey = [e.key, 'Attend', m.key.id] as Key
 			
 			[

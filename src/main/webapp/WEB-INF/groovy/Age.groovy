@@ -1,11 +1,11 @@
 import org.joda.time.DateTime;
 
 enum Age {
-	Three(3, '３歳ー年少'),
-	Four(4, '４歳ー年中'),
-	Five(5, '５歳ー年長'),
-	Six(6, '６歳ー小１'),
-	Seve(7, '７歳ー小２')
+	Three(3, '３歳－年少'),
+	Four(4, '４歳－年中'),
+	Five(5, '５歳－年長'),
+	Six(6, '６歳－小１'),
+	Seve(7, '７歳－小２')
 	
 	final int age
 	final String label
