@@ -29,10 +29,10 @@
 
     <li>${attend.printableDate}
         <label class="radio inline">
-          <input type="radio" name="attendOpt${attend.dateStr+"-"+member.number}" id="attendOpt${attend.dateStr+"-"+member.number}y" value="yes" ${attend.applied?"checked":""}>参加
+          <input type="radio" name="attendOpt_${attend.attendKey}" id="attendOpt_${attend.attendKey}_y" value="yes" ${attend.applied?"checked":""}>参加
         </label>
         <label class="radio inline">
-          <input type="radio" name="attendOpt${attend.dateStr+"-"+member.number}" id="attendOpt${attend.dateStr+"-"+member.number}n" value="no" ${attend.applied?"":"checked"}>不参加
+          <input type="radio" name="attendOpt_${attend.attendKey}" id="attendOpt_${attend.attendKey}_n" value="no" ${attend.applied?"":"checked"}>不参加
         </label>
     </li>
 

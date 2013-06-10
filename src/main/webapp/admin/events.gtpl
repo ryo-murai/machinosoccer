@@ -17,6 +17,7 @@
 				<th>定員</th>
 				<th>募集状況</th>
 				<th>締切</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,7 +30,10 @@
 				<td>${ev.limit}</td>
 				<td>${ev.activeState}</td>
 				<td>${ev.dueApply}</td>
-				<td><a href="event/edit/${ev.id}" class="btn">編集</a></td>
+				<td>
+					<a href="event/edit/${ev.id}" class="btn">編集</a>
+					<a href="event/clone/${ev.id}" class="btn">複製</a>
+				</td>
 			</tr>
 		<% } %>
 		</tbody>

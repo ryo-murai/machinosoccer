@@ -20,16 +20,6 @@ enum LessonClass {
 	}
 
 	static LessonClass findByBirthFY(int birthFY) {
-		findByAge(ageInFY(birthFY))
-	}
-		
-	static int ageInFY(int birthFY) {
-		def now = DateTime.now()
-		switch(now.monthOfYear) {
-			case 1..3:
-				return now.year - birthFY - 2 
-			default:
-				return now.year - birthFY - 1
-		}
+		findByAge(Age.ageInFY(birthFY))
 	}
 }

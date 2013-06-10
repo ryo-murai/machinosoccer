@@ -1,8 +1,50 @@
+import com.google.appengine.api.datastore.*
+
 log.info "Entering controller 'getattend.groovy'"
 
-request.email = 'example@example.com'
-request.autoApply = true
+def now = new Date()
+def activeEvents = datastore.execute {
+	select all from Event
+	where isActive == true 
+	and   dueApply < now
+	//sort asc by date
+}
 
+// TODO: handle activeEvents is zero, should forward 'no active events present' page
+// TODO: handle cancel for future event but overdue
+
+// temporary implementation
+def user = datastore.prepare(new Query('User')).asSingleEntity()
+def members = datastore.execute {
+	select all from Member
+	ancestor user.key
+}
+
+def attendKeys = members.collectMany { m ->
+	def lessonClass = LessonClass.findByBirthFY(m.birthFY.toInteger())
+	activeEvents.findAll { e -> 
+		e.lessonClassId == lessonClass.name() 
+	}.collect { e ->
+		[e.key, 'Attend', m.key.id] as Key
+	}
+}
+
+// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+log.info "events = ${activeEvents}"
+log.info "members = ${members}"
+log.info "attendKeys = ${attendKeys}"
+// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+
+
+def attends = datastore.get(attendKeys as List<Key>)
+
+request.email = user.email
+request.autoApply = true  // TODO: obtain value from datastore
+request.description = ''  // TODO: obtain value from datastore
+
+/*
 request.description = '''
 6月16日（日）　＠A小学校
 10:00～11:00　3～5歳（幼稚園・保育園児）　　定員：30名
@@ -12,42 +54,26 @@ request.description = '''
 10:00～11:00　3～5歳（幼稚園・保育園児）　　定員：30名
 11:00～12:30　6～7歳（小学1～2年生）　　　　定員：30名
 '''
+*/
 
-request.attendMembers = [
-  [
-    name: '山田　花子',
-    printableAge: '小２-7歳',
-    number: 0,
-    attendList: [
-      [
-        applied: true,
-        dateStr: '20130616',
-        printableDate: '6/16',
-      ],
-      [
-        applied: true,
-        dateStr: '20130623',
-        printableDate: '6/23',
-      ],
-    ]
-  ],
-  [
-    name: '山田　太郎',
-    printableAge: '年中-5歳',
-    number: 1,
-    attendList: [
-      [
-        applied: true,
-        dateStr: '20130616',
-        printableDate: '6/16',
-      ],
-      [
-        applied: true,
-        dateStr: '20130623',
-        printableDate: '6/23',
-      ],
-    ]
-  ],
-]
+// TODO: filter by lesson class
+request.attendMembers = []
+members.each { m ->
+	request.attendMembers.add(
+		name: "${m.familyName} ${m.givenName}(${m.familyNameKana} ${m.givenNameKana}",
+		printableAge: Age.fromBirthFY(m.birthFY.toInteger()).label,
+		memberKey: m.key as String,
+		attendList: activeEvents.collect { e ->
+			def attendKey = [e.key, 'Attend', m.key.id] as Key
+			
+			[
+				applied: attends.containsKey(attendKey),
+				printableDate: e.date.format('MM/dd(E)'),
+				eventKey: e.key as String,
+				attendKey: attendKey as String,
+			] 
+		}
+	)
+}
 
 forward 'attend.gtpl'

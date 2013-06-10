@@ -23,6 +23,7 @@ switch(request.method) {
 //				def user = users.size > 0 ? users.first : new Entity("User")
 				def user = new Entity("User")
 				user.email = result.email
+				user.contact = result.contact
 				user.save()
 	
 				result.members.each { m ->
