@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form class="form form-horizontal" action="/admin/updateEvent" method="post">
+<form class="form form-horizontal" action="/admin/event/edit" method="post">
 <!-- todo: horizontal form -->
 <fieldset>
 	<input name="id" type="hidden" value="${request.event.id?:''}" />
@@ -56,7 +56,20 @@
 </fieldset>
  
 	<input type="submit" class="btn btn-primary" value="更新" />
+	<a href="/admin/events" class="btn">イベント一覧に戻る</a>
 </form>
+<% if(request.event.id != '') { %>
+<div class="alert alert-error">
+<strong>危険操作</strong>
+<form class="form form-horizontal" 
+	action="/admin/event/delete/${request.event.id}" 
+	method="post" 
+	onsubmit="return confirm('本当によろしいですか？');">
+	<input type="submit" class="btn btn-danger" value="削除" />
+	<span class="help-block"><small>削除すると、このイベントへの参加申込情報もすべて削除されます</small></span>
+</form>
+</div>
+<% } %>
 
     <script src="/js/jquery-1.7.2.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>

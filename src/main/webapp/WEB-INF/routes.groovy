@@ -11,7 +11,8 @@ get "/admin/events", forward: "/admin/events.groovy"
 
 get "/admin/event/@operation?/@id?", forward: "/admin/event.groovy"
 
-post "/admin/updateEvent", forward: "/admin/updateEvent.groovy"
+post "/admin/event/edit", forward: "/admin/updateEvent.groovy"
+post "/admin/event/delete/@id?", forward: "/admin/deleteEvent.groovy"
 
 get  "/admin/importMembers", forward: "/admin/importMembers.gtpl"
 post "/admin/importMembers", forward: "/admin/importMembers.groovy"
