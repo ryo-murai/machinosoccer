@@ -6,12 +6,12 @@ def dsMembers = datastore.execute {
 
 request.members = []
 dsMembers.each { m ->
-	int age = LessonClass.ageInFY(m.birthFY.toInteger())
+	def age = Age.fromBirthFY(m.birthFY.toInteger())
 	request.members.add(
 		name: "${m.familyName} ${m.givenName}",
 		nameKana: "${m.familyNameKana} ${m.givenNameKana}",
-		lessonClass: LessonClass.findByAge(age).label,
-		age: age,
+		lessonClass: LessonClass.findByAge(age.age).label,
+		age: age.label,
 		gender: Gender.values()[m.gender.toInteger()].label,
 	)
 }
