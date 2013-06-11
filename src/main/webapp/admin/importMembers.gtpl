@@ -47,9 +47,8 @@
     <textarea name="json" rows="20" class="span8" >${request.json?:''}</textarea>
     <div><input type="submit" class="btn btn-primary" value="インポート" /></div>
 </form>
-<div id="result" class="alert ${request.status?:'info'}">
-<pre>${request.message?:''}</pre>
-</div>
+
+<pre id="result" class="alert ${request.status?:'info'}">${request.message?:''}</pre>
     <script src="/js/jquery-1.7.2.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 </body>
