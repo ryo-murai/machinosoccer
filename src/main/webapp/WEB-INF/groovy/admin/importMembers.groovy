@@ -21,14 +21,14 @@ switch(request.method) {
 			datastore.withTransaction {
 				// todo: support update request
 //				def user = users.size > 0 ? users.first : new Entity("User")
-				def user = new Entity("User")
-				user.email = result.email
-				user.contact = result.contact
+				def user = new models.User(
+					email: result.email, 
+					contact: result.contact
+				)
 				user.save()
 	
 				result.members.each { m ->
-					def member = new Entity('Member', user.key)
-					member << m
+					def member = new models.Member(m.plus('userKey': (user as Entity).key))
 					member.save()
 				}
 			}

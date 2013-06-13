@@ -7,13 +7,13 @@ log.info "Entering controller 'events.groovy'"
 request.events = []
 
 def dsEvents = datastore.execute {
-	select all from Event
+	select all from Event as models.Event
 	sort asc by date
 }
 
 dsEvents.each { ev ->
 	request.events.add(
-		id: ev.key.id,
+		id: ev.id,
 		description: ev.description,
 		date: ev.date.format("yyyy'年'MM'月'dd'日'"),
 		limit: ev.limit,

@@ -4,7 +4,7 @@ log.info "Entering controller 'getattend.groovy'"
 
 def now = new Date()
 def activeEvents = datastore.execute {
-	select all from Event
+	select all from Event as models.Event
 	where isActive == true 
 	and   date > now
 	sort asc by date

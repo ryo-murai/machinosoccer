@@ -28,7 +28,10 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.timeZone</param-name>
+		<param-value>Asia/Tokyo</param-value>
+	</context-param>
     <filter>
         <filter-name>RoutesFilter</filter-name>
         <filter-class>groovyx.gaelyk.routes.RoutesFilter</filter-class>

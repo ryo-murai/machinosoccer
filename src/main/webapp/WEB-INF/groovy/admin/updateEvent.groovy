@@ -10,7 +10,7 @@ e.date = new DateTime(
 	params.day.toInteger(),
 	0,
 	0).toDate()
-e.limit = params.limit
+e.limit = params.limit.toInteger()
 e.lessonClassId = params.lessonClassId
 e.isActive = params.isActive.toBoolean()
 e.dueApply = new DateTime(
