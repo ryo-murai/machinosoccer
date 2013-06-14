@@ -29,11 +29,6 @@
 	</select>
 	</label>
 
-	<label for="date">
-	案内文
-	<textarea name="description" rows="3">${request.event.description}</textarea>
-	</label>
-
 	<label for="limit">
 	定員
 	<input name="limit" type="text" class="span1" value="${request.event.limit}" />名
@@ -53,9 +48,14 @@
 	<input name="dueDay" type="text" class="span1" placeholder="日" value="${request.event.dueDay}" />日
 	<input name="dueHour" type="text" class="span1" placeholder="時" value="${request.event.dueHour}" />時
 	</label>
+
+	<label for="description">
+	案内文
+	<textarea name="description" rows="3">${request.event.description}</textarea>
+	</label>
 </fieldset>
  
-	<input type="submit" class="btn btn-primary" value="更新" />
+	<input type="submit" class="btn btn-primary" value="${request.btnLabel}" />
 	<a href="/admin/events" class="btn">イベント一覧に戻る</a>
 </form>
 <% if(request.event.id != '') { %>

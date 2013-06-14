@@ -1,4 +1,5 @@
 import com.google.appengine.api.datastore.*
+import static models.Constants.*
 
 log.info "Entering controller 'getattend.groovy'"
 
@@ -20,16 +21,17 @@ if(activeEvents.isEmpty()) {
 // temporary implementation
 def user = datastore.prepare(new Query('User')).asSingleEntity()
 def members = datastore.execute {
-	select all from Member
+	select all from Member as models.Member
 	ancestor user.key
 }
 
 def attendKeys = members.collectMany { m ->
-	def lessonClass = LessonClass.findByBirthFY(m.birthFY.toInteger())
+	def lessonClass = models.LessonClass.findByAge(m.age.intValue)
 	activeEvents.findAll { e -> 
-		e.lessonClassId == lessonClass.name() 
+		e.lessonClass == lessonClass 
 	}.collect { e ->
-		[e.key, 'Attend', m.key.id] as Key
+		def evKey = ['Event', e.id] as Key
+		[evKey, 'Attend', m.id] as Key
 	}
 }
 
@@ -63,10 +65,10 @@ request.description = '''
 // TODO: filter by lesson class
 request.attendMembers = []
 members.each { m ->
-	def lessonClass = LessonClass.findByBirthFY(m.birthFY.toInteger())
+	def lessonClass = models.LessonClass.findByBirthFY(m.birthFY.toInteger())
 	request.attendMembers.add(
 		name: "${m.familyName} ${m.givenName}(${m.familyNameKana} ${m.givenNameKana})",
-		printableAge: Age.fromBirthFY(m.birthFY.toInteger()).label,
+		printableAge: m.age.label,
 		memberKey: m.key as String,
 		attendList: activeEvents.findAll { e -> 
 			e.lessonClassId == lessonClass.name() 
@@ -75,7 +77,7 @@ members.each { m ->
 			
 			[
 				applied: attends.containsKey(attendKey),
-				printableDate: e.date.format('MM/dd(E)'),
+				printableDate: e.date.format('MM/dd(E)', MyTimeZone),
 				eventKey: e.key as String,
 				attendKey: attendKey as String,
 			] 

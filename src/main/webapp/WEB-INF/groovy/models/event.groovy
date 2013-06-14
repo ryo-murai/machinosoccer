@@ -11,9 +11,8 @@ class Event {
 	@Indexed Date dueApply
 	String description
 
-//	@Ignore
-//	LessonClass getLessonClass() {
-//		LessonClass.
-//	}
-	// TODO:	
+	@Ignore
+	LessonClass getLessonClass() {
+		LessonClass.valueOf(this.lessonClassId)
+	}
 }

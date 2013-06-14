@@ -1,6 +1,7 @@
 import javax.servlet.http.HttpServletResponse
 
-import org.joda.time.DateTime;
+import org.joda.time.DateTime
+import static models.Constants.*
 
 log.info "Entering controller 'event.groovy'"
 
@@ -10,8 +11,8 @@ switch(params.operation) {
 	case 'edit':
 		def id = params.id.toLong()
 		def ev = datastore.get('Event', id)
-		def date = new DateTime(ev.date.time)
-		def dueDate = new DateTime(ev.dueApply.time)
+		def date = new DateTime(ev.date.time, MyJodaTimeZone)
+		def dueDate = new DateTime(ev.dueApply.time, MyJodaTimeZone)
 		event = [
 			id: params.operation == 'clone' ? '' : id,
 			year: date.year,
@@ -45,7 +46,8 @@ switch(params.operation) {
 			description: '',
 		]
 		
-		request.lessons = LessonClass.values()
+		request.lessons = models.LessonClass.values()
+		request.btnLabel = (params.operation == 'edit') ? '更新' : '作成'
 		forward 'event.gtpl'
 		break;
 

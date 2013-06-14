@@ -1,3 +1,5 @@
+package models
+
 import org.joda.time.DateTime;
 
 enum Age {
@@ -7,15 +9,15 @@ enum Age {
 	Six(6, '６歳－小１'),
 	Seve(7, '７歳－小２')
 	
-	final int age
+	final int intValue
 	final String label
 	Age(int age, String label) {
-		this.age = age
+		this.intValue = age
 		this.label = label
 	}
 
 	static Age fromInt(int age) {
-		Age.values().find { it.age == age }
+		Age.values().find { it.intValue == age }
 	}
 	
 	static Age fromBirthFY(int birthFY) {

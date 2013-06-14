@@ -1,3 +1,5 @@
+package models
+
 import org.joda.time.DateTime;
 
 enum LessonClass {

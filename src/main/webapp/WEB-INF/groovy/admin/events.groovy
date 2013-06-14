@@ -1,6 +1,8 @@
-import java.text.SimpleDateFormat;
+import java.text.SimpleDateFormat
 
 import com.google.appengine.api.datastore.*
+
+import static models.Constants.*
 
 log.info "Entering controller 'events.groovy'"
 
@@ -15,11 +17,11 @@ dsEvents.each { ev ->
 	request.events.add(
 		id: ev.id,
 		description: ev.description,
-		date: ev.date.format("yyyy'年'MM'月'dd'日'"),
+		date: ev.date.format("yyyy'年'MM'月'dd'日'", MyTimeZone),
 		limit: ev.limit,
-		lessonClass: LessonClass.valueOf(ev.lessonClassId).label,
+		lessonClass: ev.lessonClass.label,
 		activeState: ev.isActive?"募集中":"募集期間外",
-		dueApply: ev.dueApply.format("yyyy'年'MM'月'dd'日　'HH':'mm"),
+		dueApply: ev.dueApply.format("yyyy'年'MM'月'dd'日　'HH':'mm", MyTimeZone),
 	)
 }
 

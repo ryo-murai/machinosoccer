@@ -11,4 +11,8 @@ class Member {
 	String givenNameKana
 	Integer birthFY
 	Integer gender
+	
+	@Ignore Age getAge() {
+		Age.fromBirthFY(this.birthFY)
+	}
 }
