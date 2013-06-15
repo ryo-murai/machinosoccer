@@ -3,6 +3,13 @@ import static models.Constants.*
 
 log.info "Entering controller 'getattend.groovy'"
 
+def user = request.getSession(false)?.getAttribute('user')
+if(!user) {
+	log.info 'no session object stored'
+	redirect '/'
+	return
+}
+
 def now = new Date()
 def activeEvents = datastore.execute {
 	select all from Event as models.Event
@@ -18,8 +25,7 @@ if(activeEvents.isEmpty()) {
 
 // TODO: handle cancel for future event but overdue
 
-// temporary implementation
-def user = datastore.prepare(new Query('User')).asSingleEntity()
+
 def members = datastore.execute {
 	select all from Member as models.Member
 	ancestor user.key

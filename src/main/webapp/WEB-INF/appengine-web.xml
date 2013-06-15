@@ -5,7 +5,7 @@
 
     <!-- Enable concurrent requests by default to serve requests in parallel -->
     <threadsafe>true</threadsafe>
-
+	<sessions-enabled>true</sessions-enabled>
     <!-- If all your templates and groovlets are encoding in UTF-8 -->
     <!-- Please specify the settings below, otherwise weird characters may appear in your templates -->
     <system-properties>
@@ -24,6 +24,7 @@
         <service>mail</service>
     </inbound-services>
     -->
+    
 
     <!-- It it advised to keep this parameter to true -->
     <!-- as per the release of SDK 1.2.8, -->

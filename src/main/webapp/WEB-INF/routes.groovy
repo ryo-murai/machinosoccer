@@ -1,6 +1,6 @@
 
-get "/", forward: "/WEB-INF/pages/index.gtpl"
-get "/datetime", forward: "/datetime.groovy"
+get "/", forward: "/login.gtpl"
+post "/login", forward: "/login.groovy"
 
 get "/favicon.ico", redirect: "/images/gaelyk-small-favicon.png"
 
