@@ -7,6 +7,8 @@ class Event {
 	@Indexed Date date
 	Integer limit
 	String lessonClassId
+	String duration
+	String location
 	@Indexed Boolean isActive
 	@Indexed Date dueApply
 	String description

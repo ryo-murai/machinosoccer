@@ -16,7 +16,7 @@
 </div>
 </div>
 
-<form class="form" action="accept_apply.html" method="post">
+<form class="form" action="" method="post">
 
 <% request.attendMembers.each { member -> %>
 

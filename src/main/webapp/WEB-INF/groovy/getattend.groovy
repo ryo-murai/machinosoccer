@@ -37,9 +37,9 @@ def attendKeys = members.collectMany { m ->
 
 // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-log.info "events = ${activeEvents}"
-log.info "members = ${members}"
-log.info "attendKeys = ${attendKeys}"
+//log.info "events = ${activeEvents}"
+//log.info "members = ${members}"
+//log.info "attendKeys = ${attendKeys}"
 // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 // DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 
@@ -48,37 +48,28 @@ def attends = datastore.get(attendKeys as List<Key>)
 
 request.email = user.email
 request.autoApply = true  // TODO: obtain value from datastore
-request.description = ''  // TODO: obtain value from datastore
+request.description = activeEvents.inject('') { s, e -> s +
+	e.date.format('MM/dd(E)', MyTimeZone) + e.duration + " " + e.lessonClass.label + '\n' +
+	" @" + e.location + " 定員:" + e.limit + "名\n"
+}
 
-/*
-request.description = '''
-6月16日（日）　＠A小学校
-10:00～11:00　3～5歳（幼稚園・保育園児）　　定員：30名
-11:00～12:30　6～7歳（小学1～2年生）　　　　定員：30名
- 
-6月23日（日）　＠A小学校
-10:00～11:00　3～5歳（幼稚園・保育園児）　　定員：30名
-11:00～12:30　6～7歳（小学1～2年生）　　　　定員：30名
-'''
-*/
-
-// TODO: filter by lesson class
 request.attendMembers = []
 members.each { m ->
 	def lessonClass = models.LessonClass.findByBirthFY(m.birthFY.toInteger())
 	request.attendMembers.add(
 		name: "${m.familyName} ${m.givenName}(${m.familyNameKana} ${m.givenNameKana})",
 		printableAge: m.age.label,
-		memberKey: m.key as String,
+		memberId: m.id,
 		attendList: activeEvents.findAll { e -> 
-			e.lessonClassId == lessonClass.name() 
+			e.lessonClass == lessonClass
 		}.collect { e ->
-			def attendKey = [e.key, 'Attend', m.key.id] as Key
+			def evKey = ['Event', e.id] as Key
+			def attendKey = [evKey, 'Attend', m.id] as Key
 			
 			[
 				applied: attends.containsKey(attendKey),
 				printableDate: e.date.format('MM/dd(E)', MyTimeZone),
-				eventKey: e.key as String,
+				eventKey: evKey as String,
 				attendKey: attendKey as String,
 			] 
 		}

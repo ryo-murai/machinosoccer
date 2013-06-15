@@ -20,8 +20,9 @@ def p = [
 		params.dueDay.toInteger(),
 		params.dueHour.toInteger(),
 		0, MyJodaTimeZone).toDate(),
-	description: params.description
 ]
+
+p << params.subMap('duration', 'location', 'description')
 
 if(!params.id.isEmpty()) p['id'] = params.id.toLong()
 

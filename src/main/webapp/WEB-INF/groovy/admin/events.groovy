@@ -17,11 +17,13 @@ dsEvents.each { ev ->
 	request.events.add(
 		id: ev.id,
 		description: ev.description,
-		date: ev.date.format("yyyy'年'MM'月'dd'日'", MyTimeZone),
+		date: ev.date.format("yyyy'年'MM'月'dd'日('E')'", MyTimeZone),
 		limit: ev.limit,
 		lessonClass: ev.lessonClass.label,
+		duration: ev.duration,
+		location: ev.location,
 		activeState: ev.isActive?"募集中":"募集期間外",
-		dueApply: ev.dueApply.format("yyyy'年'MM'月'dd'日　'HH':'mm", MyTimeZone),
+		dueApply: ev.dueApply.format("yyyy'年'MM'月'dd'日('E')　'HH':'mm", MyTimeZone),
 	)
 }
 

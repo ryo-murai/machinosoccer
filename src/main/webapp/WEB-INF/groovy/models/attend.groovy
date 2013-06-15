@@ -4,7 +4,7 @@ import groovyx.gaelyk.datastore.*
 
 @Entity(unindexed=false)
 class Attend {
-	@Parent Key eventKey
+	@Parent com.google.appengine.api.datastore.Key eventKey
 	Integer attendState
 	Date appliedTime
 }
