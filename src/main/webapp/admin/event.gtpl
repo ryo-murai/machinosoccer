@@ -16,9 +16,7 @@
 	<div class="control-group">
 	<label for="date" class="control-label">開催日</label>
 	<div class="controls">
-		<input name="year" type="text" class="span1" placeholder="西暦" value="${request.event.year}" />年
-		<input name="month" type="text" class="span1" placeholder="月" value="${request.event.month}" />月
-		<input name="day" type="text" class="span1" placeholder="日" value="${request.event.day}" />日
+		<input name="date" type="date" value="${request.event.dateString}" required />
 	</div>
 	</div>
 
@@ -37,17 +35,11 @@
 	<label class="control-label" for="duration">時間</label>
 	<div class ="controls">
 	<div class="input-prepend">
-		<input name="duration" type="text" id="duration" class="" value="${request.event.duration}" />
-		<div class="btn-group">
-		<button class="btn dropdown-toggle" data-toggle="dropdown">定型文
-		<span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu">
-			<li>10:00-11:00</li>
-			<li>11:00-12:30</li>
-		</ul>
-		<span class="help-inline">未実装ですが、定型文からの入力支援とクラス選択と連動入力</span>
-		</div>
+		<input name="duration" type="text" list="durationcandidates" value="${request.event.duration}" required />
+		<datalist id="durationcandidates">
+			 <option value="10:00-11:00">
+			 <option value="11:00-12:30">
+		</datalist>
   	</div>
 	</div>
 	</div>
@@ -56,17 +48,11 @@
 	<label class="control-label" for="location">場所</label>
 	<div class ="controls">
 	<div class="input-prepend">
-		<input name="location" type="text" class="" value="${request.event.location}" />
-		<div class="btn-group">
-		<button class="btn dropdown-toggle" data-toggle="dropdown">定型文
-		<span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu">
-			<li>柏の葉小学校グラウンド</li>
-			<li>柏の葉小学校体育館</li>
-		</ul>
-		<span class="help-inline">未実装ですが、定型文からの入力支援</span>
-		</div>
+		<input name="location" type="text" list="locationcandidates" value="${request.event.location}" required />
+		<datalist id="locationcandidates">
+			 <option value="柏の葉小学校グラウンド">
+			 <option value="柏の葉小学校体育館">
+		</datalist>
   	</div>
 	</div>
 	</div>
@@ -74,7 +60,7 @@
 	<div class="control-group">
 	<label class="control-label" for="limit">定員</label>
 	<div class ="controls">
-	<input name="limit" type="text" class="span1" value="${request.event.limit}" /><span>名</span>
+	<input name="limit" type="number" class="span1" min="0" value="${request.event.limit}" required/><span>名</span>
 	</div>
 	</div>
     
@@ -95,13 +81,7 @@
 	<div class="control-group">
 	<label for="dueApply" class="control-label">締切日時</label>
 	<div class ="controls">
-		<input name="dueYear" type="text" class="span1" placeholder="西暦" value="${request.event.dueYear}" /><span>年</span>
-		<input name="dueMonth" type="text" class="span1" placeholder="月" value="${request.event.dueMonth}" /><span>月</span>
-		<input name="dueDay" type="text" class="span1" placeholder="日" value="${request.event.dueDay}" /><span>日</span>
-		<div class="input-prepend">
-		<input name="dueHour" type="text" class="span1" placeholder="時" value="${request.event.dueHour}" />
-		<span class="add-on">:00</span>
-		</div>
+		<input name="dueApply" type="datetime-local" value="${request.event.dueApplyString?:''}" required />
 	</div>
 	</div>
 

@@ -11,22 +11,16 @@ switch(params.operation) {
 	case 'edit':
 		def id = params.id.toLong()
 		def ev = datastore.get('Event', id)
-		def date = new DateTime(ev.date.time, MyJodaTimeZone)
 		def dueDate = new DateTime(ev.dueApply.time, MyJodaTimeZone)
 		event = [
 			id: params.operation == 'clone' ? '' : id,
-			year: date.year,
-			month: date.monthOfYear,
-			day: date.dayOfMonth,
+			dateString: ev.date.format('yyyy-MM-dd', MyTimeZone),
 			limit: ev.limit,
 			lessonClassId: ev.lessonClassId,
 			duration: ev.duration,
 			location: ev.location,
 			isActive: ev.isActive,
-			dueYear: dueDate.year,
-			dueMonth: dueDate.monthOfYear,
-			dueDay: dueDate.dayOfMonth,
-			dueHour: dueDate.hourOfDay,
+			dueApplyString: Html5InputDateTimeFormatter.print(dueDate),
 			description: ev.description,
 		]
 		// fall through
