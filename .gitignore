@@ -2,7 +2,6 @@
 .gradle
 .project
 .settings
-gradle/
 build
 classes/
 src/main/webapp/WEB-INF/lib/

@@ -74,6 +74,10 @@ dependencies {
     gaeSdk "com.google.appengine:appengine-java-sdk:$gaeVersion"
 }
 
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.6'
+}
+
 /**
  * appengine settings
  */
